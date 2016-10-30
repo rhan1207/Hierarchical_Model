@@ -5,7 +5,7 @@ process_data <- function(file,data_dir){
   setwd(data_dir)
   #df <- read.table("apt.2015-06-30.txt", header = TRUE, sep = "|")
   df <- read.table(file, header = TRUE, sep = "|")
-
+  
   # delete row without industry
   del = which(df$INDUSTRY == "Unknown")
   if (length(del) > 0){df = df[-del,]} 
@@ -22,10 +22,8 @@ process_data <- function(file,data_dir){
   # calculate variance of y
   var_ret = var(df$RETNEXT)
 
-  out = list(beta, var_ret)
-  names(out) = c("beta", "var")
+  out = list(beta, var_ret, as.matrix(df))
+  names(out) = c("beta", "var", "data")
   
   return(out)
-  
-  
 }
